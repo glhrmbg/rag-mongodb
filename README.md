@@ -34,7 +34,7 @@ Navigate to Atlas Search and create a new Vector Search Index:
     },
     {
       "type": "filter",
-      "path": "metadata"
+      "path": "hasCode"
     }
   ]
 }
@@ -62,7 +62,7 @@ MONGODB_URI=your-mongodb-connection-string
 
 4. Run the ingestion script:
 ```bash
-python main.py
+python load_data.py
 ```
 
 The script will automatically process all PDFs in the `docs/` folder and:
@@ -71,3 +71,16 @@ The script will automatically process all PDFs in the `docs/` folder and:
 - Split documents into chunks (500 chars with 150 overlap)
 - Generate embeddings using OpenAI
 - Store everything in MongoDB Atlas
+
+5. After ingesting documents, you can query your data:
+```bash
+python rag.py
+```
+
+Or import and use programmatically:
+```python
+from rag import query_data
+
+answer = query_data("What is the difference between a collection and database in MongoDB?")
+print(answer)
+```
